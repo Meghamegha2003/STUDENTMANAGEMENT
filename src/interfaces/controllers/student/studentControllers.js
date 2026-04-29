@@ -3,28 +3,50 @@ const RegisterStudent = require("../../../usecases/student/registerStudent");
 const STATUS_CODES = require("../../../utils/statusCodes");
 
 class StudentController {
-    constructor(studentRepo){
-        this.registerStudent = new RegisterStudent(studentRepo)
-        this.loginStudent = new LoginStudent(studentRepo)
-    }
+  constructor(studentRepo) {
+    this.registerStudent = new RegisterStudent(studentRepo);
+    this.loginStudent = new LoginStudent(studentRepo);
+  }
 
-    async register(req,res){
-        try {
-            const result = await this.registerStudent.execute(req.body)
-            return res.status(STATUS_CODES.CREATED).json({success:true, data:result})
-        } catch (error) {
-            return res.status(STATUS_CODES.BAD_REQUEST).json({success:false, message: error.message });
-        }
-    }
+  async register(req, res) {
+    try {
+      const { email, name, password } = req.body;
 
-    async login(req,res){
-        try {
-            const result = await this.loginStudent.execute(req.body)
-            return res.status(STATUS_CODES.OK).json({success:true, data:result})
-        } catch (error) {
-            return res.status(STATUS_CODES.BAD_REQUEST).json({success:false, message:error.message})
-        }
+      if (!email || !name || !password) {
+        return res.status(STATUS_CODES.BAD_REQUEST).json({
+          success: false,
+          message: "All fields are required",
+        });
+      }
+      const result = await this.registerStudent.execute(req.body);
+      return res
+        .status(STATUS_CODES.CREATED)
+        .json({ success: true, data: result });
+    } catch (error) {
+      return res
+        .status(STATUS_CODES.BAD_REQUEST)
+        .json({ success: false, message: error.message });
     }
+  }
+
+  async login(req, res) {
+    try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+        return res.status(STATUS_CODES.BAD_REQUEST).json({
+          success: false,
+          message: "All fields are required",
+        });
+      }
+      const result = await this.loginStudent.execute(req.body);
+      return res.status(STATUS_CODES.OK).json({ success: true, data: result });
+    } catch (error) {
+      return res
+        .status(STATUS_CODES.BAD_REQUEST)
+        .json({ success: false, message: error.message });
+    }
+  }
 }
 
-module.exports = StudentController
+module.exports = StudentController;

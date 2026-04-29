@@ -8,7 +8,7 @@ class FileUploadRepository extends IFileUploadRepository {
       const stream = cloudinary.uploader.upload_stream(
         { folder: "student_profile" },
         (error, result) => {
-          if (error) return rejected(error);
+          if (error) return reject(error);
           resolve({
             url: result.secure_url,
             public_id: result.public_id,
@@ -20,7 +20,7 @@ class FileUploadRepository extends IFileUploadRepository {
     });
   }
 
-  async deleteFile(puplicId) {
+  async deleteFile(publicId) {
     return await cloudinary.uploader.destroy(publicId);
   }
 }

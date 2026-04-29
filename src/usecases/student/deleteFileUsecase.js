@@ -3,17 +3,20 @@ class DeleteFileUsecase {
         this.fileRepo = fileRepo
     }
 
-    async execute(prouctId){
-        if(!productId){
-            throw new Error("productId is required");
+    async execute(publicId){
+        if(!publicId){
+            throw new Error("publicId is required");
         }
 
-        const result =await this.fileRepo.deleteFile(productId)
+        const result =await this.fileRepo.deleteFile(publicId)
         if (result.result !== "ok") {
             throw new Error("Image deletion failed");
         }
         return {
-            message:"Image deleted successfully"
+             success: true,
+            message:"Image deleted successfully",
+            publicId,
+            result
         }
     }
 }

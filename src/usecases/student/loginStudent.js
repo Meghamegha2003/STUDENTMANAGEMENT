@@ -17,12 +17,12 @@ class LoginStudent{
             throw new Error("Password not match");
             
         }
-        const payload = {id:user._id,name:user.name}
+        const payload = {id:user._id,name:user.name,role:user.role}
         const accessToken = await jwtServices.generateAccessToken(payload)
         const refreshToken = await jwtServices.generateRefreshToken(payload)
 
         const userObj = user.toObject()
-        delete userObj
+        delete userObj.password
 
         return {
             user : userObj,

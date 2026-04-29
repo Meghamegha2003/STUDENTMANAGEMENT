@@ -11,6 +11,7 @@ class GetHomeController{
             const result = await this.getHomeUsecase.execute(req.user.id)
             return res.status(STATUS_CODES.OK).json({
                 success:true,
+                message:"Home accessed successfully",
                 data:result
             })
         } catch (error) {

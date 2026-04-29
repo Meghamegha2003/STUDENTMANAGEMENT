@@ -10,7 +10,8 @@ class ProfileController {
 
   async getProfile(req, res) {
     try {
-      const result = await this.getProfileUsecase.execute(req.user._id);
+      const {id} = req.user.id
+      const result = await this.getProfileUsecase.execute(req.user.id);
       return res.json({ status: true, data: result });
     } catch (error) {
       return res
@@ -21,7 +22,8 @@ class ProfileController {
 
   async updateProfile(req, res) {
     try {
-      const result = await this.updateProfileUsecase.execute(req.user._id, req.body);
+      const {id} = req.params
+      const result = await this.updateProfileUsecase.execute(id, req.body);
       return res
         .status(STATUS_CODES.OK)
         .json({

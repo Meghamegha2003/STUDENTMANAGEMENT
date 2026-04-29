@@ -32,8 +32,8 @@ router.get('/', authMiddleware , roleBasedMiddleware('user'), homeController.get
 router.get('/profile',authMiddleware,roleBasedMiddleware("user") , profileController.getProfile.bind(profileController))
 router.patch('/profile/update',authMiddleware,roleBasedMiddleware("user"), profileController.updateProfile.bind(profileController))
 
-router.post('/upload/img',authMiddleware , roleBasedMiddleware("user"), upload.single("image") ,imageController.uploadImg.bind(imageController))
-router.post("/delete/img" , authMiddleware , roleBasedMiddleware("user") , imageController.deleteImg.bind(imageController))
+router.post('/profile/image',authMiddleware , roleBasedMiddleware("user"), upload.single("image") ,imageController.uploadImg.bind(imageController))
+router.delete("/profile/image/:publicId" , authMiddleware , roleBasedMiddleware("user") , imageController.deleteImg.bind(imageController))
 
 
 

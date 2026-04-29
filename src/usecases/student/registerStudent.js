@@ -17,8 +17,7 @@ class RegisterStudent {
         name,
         email,
         password:hashedPassword,
-        profileImg
-       })
+        })
 
        const userObj = student.toObject()
        delete userObj.password
