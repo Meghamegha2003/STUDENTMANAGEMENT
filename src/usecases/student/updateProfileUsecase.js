@@ -4,7 +4,8 @@ class UpdateProfileUsecase {
     }
 
     async execute(userId,data){
-        return await this.studentRepo.update(userId,data)
+        const profile =  await this.studentRepo.update(userId,data)
+        
     }
 }
 

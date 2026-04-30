@@ -9,11 +9,11 @@ const StudentRepository = require("../../../infrastructure/repositories/studentR
 const adminRepo = new StudentRepository()
 const controller = new AdminControllers(adminRepo)
 
-router.post("/admin/login",  controller.loginAdmin.bind(controller) )
-router.get("/admin", authMiddleware ,roleBasedMiddleware("admin") , controller.getDashboard.bind(controller))
-router.get("/admin/users/search", authMiddleware ,roleBasedMiddleware("admin") , controller.searchUser.bind(controller))
-router.post("/admin/users",authMiddleware,roleBasedMiddleware("admin"),controller.addUser.bind(controller))
-router.patch("/admin/users/:id",authMiddleware,roleBasedMiddleware("admin"),controller.updateUser.bind(controller))
-router.delete("/admin/users/:id",authMiddleware,roleBasedMiddleware("admin"),controller.deleteUser.bind(controller))
+router.post("/login",  controller.loginAdmin.bind(controller) )
+router.get("/", authMiddleware ,roleBasedMiddleware("admin") , controller.getDashboard.bind(controller))
+router.get("/users/search", authMiddleware ,roleBasedMiddleware("admin") , controller.searchUser.bind(controller))
+router.post("/users",authMiddleware,roleBasedMiddleware("admin"),controller.addUser.bind(controller))
+router.patch("/users/:id",authMiddleware,roleBasedMiddleware("admin"),controller.updateUser.bind(controller))
+router.delete("/users/:id",authMiddleware,roleBasedMiddleware("admin"),controller.deleteUser.bind(controller))
 
 module.exports = router

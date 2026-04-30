@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const bcrypt = require("bcrypt")
 
 const schema = mongoose.Schema({
     name:{
@@ -21,5 +22,14 @@ const schema = mongoose.Schema({
     },
     profileImg:String
 })
+
+schema.pre("findOneAndUpdate", async function() {
+  const update = this.getUpdate();
+
+  if (update.password) {
+    update.password = await bcrypt.hash(update.password, 10);
+  }
+
+});
 
 module.exports = mongoose.model("student",schema)

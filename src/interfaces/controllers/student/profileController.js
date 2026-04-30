@@ -22,7 +22,7 @@ class ProfileController {
 
   async updateProfile(req, res) {
     try {
-      const {id} = req.params
+      const {id} = req.user
       const result = await this.updateProfileUsecase.execute(id, req.body);
       return res
         .status(STATUS_CODES.OK)

@@ -8,8 +8,8 @@ class AdminLoginUsecase {
 
     async execute({email,password}){
         const admin = await this.adminRepo.findByEmail(email)
-        if(!admin){
-            throw new Error(" Admin not exist");
+        if(!admin || admin.role !== "admin"){
+            throw new Error("Admin not exist or access denied ");
         }
 
         const isMatch = await bcryptService.comparePassword(password,admin.password)

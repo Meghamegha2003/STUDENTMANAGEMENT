@@ -3,8 +3,8 @@ class GetDashboardUsecase {
         this.adminRepo = adminRepo
     }
 
-    async execute({name,email}){
-        const user = await this.adminRepo.find()
+    async execute(adminId){
+        const user = await this.adminRepo.findById(adminId)
         if(!user){
             throw new Error("User not fount");
         }

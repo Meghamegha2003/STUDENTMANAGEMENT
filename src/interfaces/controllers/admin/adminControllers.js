@@ -44,7 +44,7 @@ class AdminControllers {
 
   async getDashboard(req, res) {
     try {
-      const result = await this.getDashboardUsecase.execute();
+      const result = await this.getDashboardUsecase.execute(req.user.id);
       return res.status(STATUS_CODES.OK).json({ success: true, data: result });
     } catch (error) {
       return res

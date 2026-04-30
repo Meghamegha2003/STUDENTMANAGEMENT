@@ -8,8 +8,8 @@ class LoginStudent{
 
     async execute({email,password}){
         const user =  await this.studentRepo.findByEmail(email)
-        if(!user){
-            throw new Error("User not exist");
+        if(!user|| user.role !== "user"){
+            throw new Error("User not exist or access denied");
         }
 
         const isMatch = await bcryptService.comparePassword(password,user.password)
